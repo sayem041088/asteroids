@@ -2,9 +2,12 @@ import pygame
 
 # Base class for game objects
 class CircleShape(pygame.sprite.Sprite):
+    # declare containers here so static analyzers know this attribute exists
+  
+
     def __init__(self, x, y, radius):
         # we will be using this later
-        if hasattr(self, "containers"):
+        if getattr(self, "containers", None) is not None:
             super().__init__(self.containers)
         else:
             super().__init__()
