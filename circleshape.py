@@ -3,11 +3,12 @@ import pygame
 # Base class for game objects
 class CircleShape(pygame.sprite.Sprite):
     # declare containers here so static analyzers know this attribute exists
+    containers = ()
   
 
     def __init__(self, x, y, radius):
         # we will be using this later
-        if getattr(self, "containers", None) is not None:
+        if getattr(self, "containers"):
             super().__init__(self.containers)
         else:
             super().__init__()

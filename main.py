@@ -1,39 +1,50 @@
 import pygame
-"""
-Main module for the Asteroids game.
-
-This module initializes the Pygame window and runs the main game loop.
-The game currently only displays a black window that can be closed.
-
-Functions:
-    main(): Initializes pygame and runs the main game loop.
-
-Constants (imported from constants.py):
-    SCREEN_WIDTH: Width of the game window
-    SCREEN_HEIGHT: Height of the game window
-"""
-from constants import *
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from player import Player
 
 def main():
     pygame.init()
-    print("Starting Asteroids!")
-    print(f'Screen width: {SCREEN_WIDTH}')
-    print(f'Screen height: {SCREEN_HEIGHT}')
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    clock_object = pygame.time.Clock()
+    clock = pygame.time.Clock()
+    dt = 0
+    
+    # Create sprite groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    
+    # Set containers for Player class
+    Player.containers = (updatable, drawable)
+    
+    # Instantiate the player in the center of the screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     
-    dt=0
-    while True:
+    print("Starting asteroids!")
+    print(f"Screen width: {SCREEN_WIDTH}")
+    print(f"Screen height: {SCREEN_HEIGHT}")
+    
+    running = True
+    while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
-        player.update(dt)
-        screen.fill((0, 0, 0))
-        player.draw(screen)
+                running = False
+        
+        # Update all updatable objects
+        updatable.update(dt)
+        
+        # Fill the screen with black
+        screen.fill("black")
+        
+        # Draw all drawable objects
+        for obj in drawable:
+            obj.draw(screen)
+        
+        # Flip the display
         pygame.display.flip()
-        dt = clock_object.tick(60)/1000
+        
+        # Limit framerate to 60 FPS
+        dt = clock.tick(60) / 1000
+
     pygame.quit()
+
 if __name__ == "__main__":
     main()
