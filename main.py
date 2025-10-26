@@ -1,4 +1,17 @@
 import pygame
+"""
+Main module for the Asteroids game.
+
+This module initializes the Pygame window and runs the main game loop.
+The game currently only displays a black window that can be closed.
+
+Functions:
+    main(): Initializes pygame and runs the main game loop.
+
+Constants (imported from constants.py):
+    SCREEN_WIDTH: Width of the game window
+    SCREEN_HEIGHT: Height of the game window
+"""
 from constants import *
 
 def main():
